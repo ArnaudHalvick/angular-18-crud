@@ -1,0 +1,161 @@
+/* General Styles */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.col-8,
+.col-4,
+.col-6,
+.col-12 {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.col-8 {
+  flex: 0 0 66.666%; /* 8/12 */
+  max-width: 66.666%;
+}
+
+.col-4 {
+  flex: 0 0 33.333%; /* 4/12 */
+  max-width: 33.333%;
+}
+
+.col-6 {
+  flex: 0 0 50%; /* 6/12 */
+  max-width: 50%;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Card Styles */
+.card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 15px;
+  font-size: 1.5rem; /* Larger font for titles */
+  font-weight: 600;
+  color: #ffffff;
+  border-radius: 10px 10px 0 0; /* Smooth top corners */
+}
+
+.card-header.bg-success {
+  background-color: #126b27;
+}
+
+.card-body {
+  padding: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 0 0 10px 10px; /* Smooth bottom corners */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 10px; /* Smooth table corners */
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background: #f1f1f1;
+}
+
+thead th {
+  text-align: left;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+tbody td {
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+}
+
+/* Form Styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+textarea,
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+/* Button Styles */
+.btn {
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  border-radius: 5px; /* Rounded buttons */
+  cursor: pointer;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .col-8,
+  .col-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
