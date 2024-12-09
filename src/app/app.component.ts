@@ -102,4 +102,25 @@ export class AppComponent {
       this.clearForm();
     }
   }
+
+  onDelete(employeeId: number): void {
+    // Confirm deletion with the user
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this employee?'
+    );
+
+    if (confirmDelete) {
+      // Filter out the employee with the given ID
+      this.employeeList = this.employeeList.filter(
+        emp => emp.employeeId !== employeeId
+      );
+
+      // Save the updated list back to localStorage
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
+      }
+
+      alert('Employee deleted successfully!');
+    }
+  }
 }
