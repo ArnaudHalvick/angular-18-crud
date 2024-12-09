@@ -14,9 +14,23 @@
                   <th>Name</th>
                   <th>Phone Number</th>
                   <th>Email</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                @for (item of employeeList; track $index) {
+                <tr>
+                  <td>{{ item.employeeId }}</td>
+                  <td>{{ item.firstName + " " + item.lastName }}</td>
+                  <td>{{ item.contactNo }}</td>
+                  <td>{{ item.emailId }}</td>
+                  <td class="text-center">
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger mx-2">Delete</button>
+                  </td>
+                </tr>
+                }
+              </tbody>
             </table>
           </div>
         </div>
