@@ -6,15 +6,17 @@ import { EmployeeModel } from './model/Employee';
   selector: 'app-root',
   imports: [ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'], // Fixed typo
 })
 export class AppComponent {
   title = 'angular-18-crud';
   employeeForm: FormGroup;
   employeeObj: EmployeeModel = new EmployeeModel();
+  employeeList: EmployeeModel[] = [];
 
   constructor() {
     this.employeeForm = this.createForm();
+    this.loadEmployeeData();
   }
 
   createForm(): FormGroup {
@@ -29,5 +31,31 @@ export class AppComponent {
       postalCode: new FormControl(this.employeeObj.postalCode),
       address: new FormControl(this.employeeObj.address),
     });
+  }
+
+  loadEmployeeData(): void {
+    if (typeof localStorage !== 'undefined') {
+      const oldData = localStorage.getItem('EmpData');
+      if (oldData !== null) {
+        this.employeeList = JSON.parse(oldData);
+      }
+    }
+  }
+
+  onSave(): void {
+    if (typeof localStorage !== 'undefined') {
+      const oldData = localStorage.getItem('EmpData');
+      if (oldData !== null) {
+        const parsedData = JSON.parse(oldData);
+        this.employeeForm.controls['employeeId'].setValue(
+          parsedData.length + 1
+        );
+        this.employeeList.unshift(this.employeeForm.value);
+      } else {
+        this.employeeForm.controls['employeeId'].setValue(1);
+        this.employeeList.unshift(this.employeeForm.value);
+      }
+      localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
+    }
   }
 }
