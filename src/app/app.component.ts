@@ -52,10 +52,54 @@ export class AppComponent {
         );
         this.employeeList.unshift(this.employeeForm.value);
       } else {
-        this.employeeForm.controls['employeeId'];
+        this.employeeForm.controls['employeeId'].setValue(1);
         this.employeeList.unshift(this.employeeForm.value);
       }
       localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
+
+      // Clear the form and reset the employeeId to 0
+      this.clearForm();
+    }
+  }
+
+  clearForm(): void {
+    this.employeeForm.reset(); // Clear all fields
+    this.employeeForm.controls['employeeId'].setValue(0); // Reset employeeId to 1
+  }
+
+  onEdit(item: EmployeeModel) {
+    this.employeeForm.patchValue({
+      employeeId: item.employeeId,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      city: item.city,
+      state: item.state,
+      emailId: item.emailId,
+      contactNo: item.contactNo,
+      postalCode: item.postalCode,
+      address: item.address,
+    });
+  }
+
+  onUpdate(): void {
+    const updatedEmployee = this.employeeForm.value;
+
+    // Find the index of the employee to update
+    const index = this.employeeList.findIndex(
+      emp => emp.employeeId === updatedEmployee.employeeId
+    );
+
+    if (index !== -1) {
+      // Update the employee data in the list
+      this.employeeList[index] = updatedEmployee;
+
+      // Save the updated list back to localStorage
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
+      }
+
+      // Clear the form and reset the employeeId
+      this.clearForm();
     }
   }
 }

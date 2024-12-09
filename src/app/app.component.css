@@ -171,6 +171,14 @@ textarea {
   background-color: #c82333;
 }
 
+.btn-warning {
+  background-color: #ffc107;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
 /* Button Row for Table */
 .table-buttons {
   display: flex;
