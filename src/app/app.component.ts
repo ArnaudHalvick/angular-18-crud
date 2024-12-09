@@ -52,7 +52,7 @@ export class AppComponent {
         );
         this.employeeList.unshift(this.employeeForm.value);
       } else {
-        this.employeeForm.controls['employeeId'].setValue(1);
+        this.employeeForm.controls['employeeId'];
         this.employeeList.unshift(this.employeeForm.value);
       }
       localStorage.setItem('EmpData', JSON.stringify(this.employeeList));

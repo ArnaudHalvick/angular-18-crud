@@ -10,7 +10,7 @@ export class EmployeeModel {
   address: string;
 
   constructor() {
-    this.employeeId = 0;
+    this.employeeId = 1;
     this.firstName = '';
     this.lastName = '';
     this.city = '';
