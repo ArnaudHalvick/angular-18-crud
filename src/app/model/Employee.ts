@@ -1,6 +1,7 @@
 export class EmployeeModel {
   employeeId: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   city: string;
   state: string;
   emailId: string;
@@ -9,7 +10,8 @@ export class EmployeeModel {
 
   constructor() {
     this.employeeId = 0;
-    this.name = '';
+    this.firstName = '';
+    this.lastName = '';
     this.city = '';
     this.state = '';
     this.emailId = '';
