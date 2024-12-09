@@ -52,52 +52,121 @@
       <form [formGroup]="employeeForm">
         <div class="row">
           <div class="col-6">
-            <label for="">First Name</label>
+            <label for="firstName">First Name</label>
             <input
               type="text"
+              id="firstName"
               formControlName="firstName"
               class="form-control"
             />
+            @if (employeeForm.controls['firstName'].invalid &&
+            employeeForm.controls['firstName'].touched) {
+            <p class="error">
+              First Name is required and must be at least 2 characters.
+            </p>
+            }
           </div>
           <div class="col-6">
-            <label for="">Last Name</label>
+            <label for="lastName">Last Name</label>
             <input
               type="text"
+              id="lastName"
               formControlName="lastName"
               class="form-control"
             />
+            @if (employeeForm.controls['lastName'].invalid &&
+            employeeForm.controls['lastName'].touched) {
+            <p class="error">
+              Last Name is required and must be at least 2 characters.
+            </p>
+            }
           </div>
           <div class="col-6">
-            <label for="">Email</label>
-            <input type="text" formControlName="emailId" class="form-control" />
-          </div>
-          <div class="col-6">
-            <label for="">Phone Number</label>
+            <label for="emailId">Email</label>
             <input
               type="text"
+              id="emailId"
+              formControlName="emailId"
+              class="form-control"
+            />
+            @if (employeeForm.controls['emailId'].invalid &&
+            employeeForm.controls['emailId'].touched) {
+            <p class="error">Enter a valid email address.</p>
+            }
+          </div>
+          <div class="col-6">
+            <label for="contactNo">Phone Number</label>
+            <input
+              type="text"
+              id="contactNo"
               formControlName="contactNo"
               class="form-control"
             />
+            @if (employeeForm.controls['contactNo'].invalid &&
+            employeeForm.controls['contactNo'].touched) {
+            <p class="error">
+              Phone Number is required and must contain only digits.
+            </p>
+            }
           </div>
           <div class="col-6">
-            <label for="">City</label>
-            <input type="text" formControlName="city" class="form-control" />
-          </div>
-          <div class="col-6">
-            <label for="">State</label>
-            <input type="text" formControlName="state" class="form-control" />
-          </div>
-          <div class="col-6">
-            <label for="">Postal Code</label>
+            <label for="city">City</label>
             <input
               type="text"
+              id="city"
+              formControlName="city"
+              class="form-control"
+            />
+            @if (employeeForm.controls['city'].invalid &&
+            employeeForm.controls['city'].touched) {
+            <p class="error">
+              City is required and must be at least 3 characters.
+            </p>
+            }
+          </div>
+          <div class="col-6">
+            <label for="state">State</label>
+            <input
+              type="text"
+              id="state"
+              formControlName="state"
+              class="form-control"
+            />
+            @if (employeeForm.controls['state'].invalid &&
+            employeeForm.controls['state'].touched) {
+            <p class="error">
+              State is required and must be at least 2 characters.
+            </p>
+            }
+          </div>
+          <div class="col-6">
+            <label for="postalCode">Postal Code</label>
+            <input
+              type="text"
+              id="postalCode"
               formControlName="postalCode"
               class="form-control"
             />
+            @if (employeeForm.controls['postalCode'].invalid &&
+            employeeForm.controls['postalCode'].touched) {
+            <p class="error">
+              Postal Code is required and must contain only digits.
+            </p>
+            }
           </div>
           <div class="col-12">
-            <label for="">Address</label>
-            <textarea formControlName="address" id="form-control"></textarea>
+            <label for="address">Address</label>
+            <textarea
+              id="address"
+              formControlName="address"
+              class="form-control"
+            ></textarea>
+            @if (employeeForm.controls['address'].invalid &&
+            employeeForm.controls['address'].touched) {
+            <p class="error">
+              Address is required and must be at least 5 characters.
+            </p>
+            }
           </div>
         </div>
         <div class="row">

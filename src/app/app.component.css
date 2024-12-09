@@ -186,6 +186,14 @@ textarea {
   gap: 10px; /* Space between buttons */
 }
 
+/* Error Styles */
+.error {
+  color: #dc3545; /* Red for errors */
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .col-8,

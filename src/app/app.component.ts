@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { EmployeeModel } from './model/Employee';
 
 @Component({
   selector: 'app-root',
   imports: [ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'], // Fixed typo
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'angular-18-crud';
@@ -19,31 +24,66 @@ export class AppComponent {
     this.loadEmployeeData();
   }
 
+  private isLocalStorageAvailable(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
+
   createForm(): FormGroup {
     return new FormGroup({
       employeeId: new FormControl(this.employeeObj.employeeId),
-      firstName: new FormControl(this.employeeObj.firstName),
-      lastName: new FormControl(this.employeeObj.lastName),
-      city: new FormControl(this.employeeObj.city),
-      state: new FormControl(this.employeeObj.state),
-      emailId: new FormControl(this.employeeObj.emailId),
-      contactNo: new FormControl(this.employeeObj.contactNo),
-      postalCode: new FormControl(this.employeeObj.postalCode),
-      address: new FormControl(this.employeeObj.address),
+      firstName: new FormControl(this.employeeObj.firstName, [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      lastName: new FormControl(this.employeeObj.lastName, [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      city: new FormControl(this.employeeObj.city, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      state: new FormControl(this.employeeObj.state, [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      emailId: new FormControl(this.employeeObj.emailId, [
+        Validators.required,
+        Validators.email,
+      ]),
+      contactNo: new FormControl(this.employeeObj.contactNo, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$'),
+      ]),
+      postalCode: new FormControl(this.employeeObj.postalCode, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$'),
+      ]),
+      address: new FormControl(this.employeeObj.address, [
+        Validators.required,
+        Validators.minLength(5),
+      ]),
     });
   }
 
   loadEmployeeData(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (this.isLocalStorageAvailable()) {
       const oldData = localStorage.getItem('EmpData');
       if (oldData !== null) {
         this.employeeList = JSON.parse(oldData);
       }
+    } else {
+      console.warn('LocalStorage is not available.');
     }
   }
 
   onSave(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (this.employeeForm.invalid) {
+      alert('Please correct the form errors before saving.');
+      return;
+    }
+
+    if (this.isLocalStorageAvailable()) {
       const oldData = localStorage.getItem('EmpData');
       if (oldData !== null) {
         const parsedData = JSON.parse(oldData);
@@ -56,18 +96,18 @@ export class AppComponent {
         this.employeeList.unshift(this.employeeForm.value);
       }
       localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
-
-      // Clear the form and reset the employeeId to 0
       this.clearForm();
+    } else {
+      console.warn('LocalStorage is not available.');
     }
   }
 
   clearForm(): void {
-    this.employeeForm.reset(); // Clear all fields
-    this.employeeForm.controls['employeeId'].setValue(0); // Reset employeeId to 1
+    this.employeeForm.reset();
+    this.employeeForm.controls['employeeId'].setValue(0);
   }
 
-  onEdit(item: EmployeeModel) {
+  onEdit(item: EmployeeModel): void {
     this.employeeForm.patchValue({
       employeeId: item.employeeId,
       firstName: item.firstName,
@@ -82,41 +122,36 @@ export class AppComponent {
   }
 
   onUpdate(): void {
-    const updatedEmployee = this.employeeForm.value;
+    if (this.employeeForm.invalid) {
+      alert('Please correct the form errors before updating.');
+      return;
+    }
 
-    // Find the index of the employee to update
+    const updatedEmployee = this.employeeForm.value;
     const index = this.employeeList.findIndex(
       emp => emp.employeeId === updatedEmployee.employeeId
     );
 
     if (index !== -1) {
-      // Update the employee data in the list
       this.employeeList[index] = updatedEmployee;
-
-      // Save the updated list back to localStorage
-      if (typeof localStorage !== 'undefined') {
+      if (this.isLocalStorageAvailable()) {
         localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
       }
-
-      // Clear the form and reset the employeeId
       this.clearForm();
     }
   }
 
   onDelete(employeeId: number): void {
-    // Confirm deletion with the user
     const confirmDelete = confirm(
       'Are you sure you want to delete this employee?'
     );
 
     if (confirmDelete) {
-      // Filter out the employee with the given ID
       this.employeeList = this.employeeList.filter(
         emp => emp.employeeId !== employeeId
       );
 
-      // Save the updated list back to localStorage
-      if (typeof localStorage !== 'undefined') {
+      if (this.isLocalStorageAvailable()) {
         localStorage.setItem('EmpData', JSON.stringify(this.employeeList));
       }
 
